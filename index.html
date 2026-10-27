@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FairQueue for Spotify Jam — Hack to the Future</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo" aria-label="Spotify-style prototype">● <span>Spotify</span> <span class="jam-badge">JAM</span></div>
+    <div class="mode-toggle" role="group" aria-label="Before and after toggle">
+      <button id="btn-before" class="toggle-btn">Before: Spotify Jam today</button>
+      <button id="btn-after" class="toggle-btn active">After: + FairQueue</button>
+    </div>
+    <div class="prototype-tag">Interactive prototype — sample data, no Spotify account needed</div>
+  </header>
+
+  <main class="layout">
+    <!-- Left: Now playing + members -->
+    <section class="panel now-panel">
+      <h2>Now Playing</h2>
+      <div class="album-art" id="album-art">♪</div>
+      <div class="track-title" id="np-title">—</div>
+      <div class="track-artist" id="np-artist">—</div>
+      <div class="added-by" id="np-added">Added by —</div>
+      <div class="player-controls">
+        <button class="ctrl" id="btn-prev" title="Previous (demo)">⏮</button>
+        <button class="ctrl play" id="btn-playnext" title="Play next in queue">▶ Play Next</button>
+        <button class="ctrl" id="btn-skip" title="Skip">⏭</button>
+      </div>
+      <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+      <p class="hint">Press <strong>Play Next</strong> to watch the queue advance and fairness update live.</p>
+
+      <h3>Jam members</h3>
+      <ul class="members" id="members-list"></ul>
+    </section>
+
+    <!-- Middle: Queue -->
+    <section class="panel queue-panel">
+      <div class="queue-head">
+        <h2>Up Next <span class="queue-count" id="queue-count"></span></h2>
+        <div class="problem-banner" id="problem-banner">
+          ⚠ One person can stack the queue — everyone else waits. Spotify Jam today has no fairness rule.
+        </div>
+      </div>
+      <ol class="queue" id="queue-list"></ol>
+      <div class="queue-actions after-only">
+        <button class="primary" id="btn-fair">⚖ Apply FairQueue — reorder fairly</button>
+        <label class="switch-row">
+          <input type="checkbox" id="chk-autofair" checked>
+          <span>Auto-Fair: place new songs at their fair position automatically</span>
+        </label>
+        <div class="toast" id="toast" role="status"></div>
+      </div>
+
+      <div class="add-box">
+        <h3>Add a song to the Jam</h3>
+        <label>Who's adding?
+          <select id="sel-member"></select>
+        </label>
+        <label>Pick a song
+          <select id="sel-song"></select>
+        </label>
+        <label>…or type your own
+          <input id="inp-custom" type="text" placeholder="Song title — Artist">
+        </label>
+        <button class="primary" id="btn-add">+ Add to queue</button>
+      </div>
+    </section>
+
+    <!-- Right: FairQueue panel (After only) -->
+    <aside class="panel fair-panel after-only" id="fair-panel">
+      <h2>⚖ FairQueue</h2>
+      <p class="fair-sub">The missing feature: a turn-taking DJ for group listening.</p>
+
+      <div class="score-ring">
+        <div class="score-num" id="score-num">–</div>
+        <div class="score-label">Fairness score</div>
+      </div>
+
+      <div id="share-bars"></div>
+
+      <div class="next-up" id="next-up-box">
+        Next turn should go to: <strong id="next-up-name">—</strong><br>
+        <span class="hint" id="next-up-why"></span>
+      </div>
+
+      <h3>How it works</h3>
+      <ul class="how">
+        <li>The queue becomes a <em>rotation</em>: one song per person per round.</li>
+        <li>Members who have heard least so far lead the rotation — your own song order never changes.</li>
+        <li>Nobody gets a second song in a round while someone else is still waiting for a first.</li>
+        <li>Hosts can toggle it per Jam; listeners see exactly why a song moved.</li>
+      </ul>
+      <div class="explainer" id="explainer">Every reorder explains itself here — no silent shuffling.</div>
+    </aside>
+  </main>
+
+  <footer>
+    FairQueue is a concept prototype for “Hack to the Future.” Not affiliated with Spotify.
+    Sample songs are titles only; no audio is played. Built by AI agents directed by Rene Turcios — see README.
+  </footer>
+
+<script src="logic.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
